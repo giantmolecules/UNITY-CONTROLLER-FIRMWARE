@@ -8,7 +8,8 @@
  */
  #include "Particle.h"
  #include "neopixel.h"
- 
+ #include "simple-OSC.h"
+
 // setup() runs once, when the device is first turned on.
 void setup() {
   // Put initialization like pinMode and begin functions here.
