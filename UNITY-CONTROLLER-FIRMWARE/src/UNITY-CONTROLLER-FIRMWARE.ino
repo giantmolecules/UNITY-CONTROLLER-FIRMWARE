@@ -21,9 +21,14 @@
  #define PIXEL_COUNT 5
  #define PIXEL_TYPE WS2812B
 
+ #define TEMP_PIN A0
+ #define LIGHT_PIN A1
+ #define PIR_PIN D2
+ #define PIEZO_PIN D3
+
  Adafruit_DRV2605 drv;
  Adafruit_MMA8451 mma = Adafruit_MMA8451();
- Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+ Adafruit_NeoPixel neo(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 
 // setup() runs once, when the device is first turned on.
 void setup() {
