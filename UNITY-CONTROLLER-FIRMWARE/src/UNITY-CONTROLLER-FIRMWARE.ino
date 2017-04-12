@@ -6,9 +6,24 @@
  * Date: April 11, 2017
  * License: CC-BY-SA-NC
  */
- #include "Particle.h"
- #include "neopixel.h"
- #include "simple-OSC.h"
+
+// Include Libraries
+
+ #include <Particle.h>
+ #include <neopixel.h>
+ #include <simple-OSC.h>
+ #include <Wire.h>
+ #include <Adafruit_MMA8451.h>
+ #include <Adafruit_Sensor.h>
+ #include <Adafruit_DRV2605.h>
+
+ #define PIXEL_PIN D6
+ #define PIXEL_COUNT 5
+ #define PIXEL_TYPE WS2812B
+
+ Adafruit_DRV2605 drv;
+ Adafruit_MMA8451 mma = Adafruit_MMA8451();
+ Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 
 // setup() runs once, when the device is first turned on.
 void setup() {
