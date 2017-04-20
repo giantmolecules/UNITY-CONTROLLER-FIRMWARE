@@ -59,7 +59,7 @@ String localIpString;
 
 // !!IMPORTANT!!
 // Change IP address to match that of the computer running Unity
-IPAddress outIp(192, 168, 1, 4);//your computer IP
+IPAddress outIp(10, 73, 24, 136);//your computer IP
 unsigned int outPort = 8000; //computer incoming port
 
 //
@@ -116,28 +116,38 @@ void setup() {
 
 void loop() {
 
+    // Turn all neopixels to WHITE
+    for(int i = 0; i < PIXEL_COUNT; i++){
+      pixels.setPixelColor(i, 255,255,255);
+    }
+    pixels.show();
+
     // Send time to Unity
     theTime = millis();
     // test
     theTime = 1000;
+    //
     sendTimeToUnity(theTime);
 
     // Read temperature sensor & send
     tempVal = analogRead(TEMP_PIN);
     // test
     tempVal = 4095;
+    //
     sendTempToUnity(tempVal);
 
     // Read photo sensor & send
     lightVal = analogRead(LIGHT_PIN);
     // test
     lightVal = random(255);
+    //
     sendLightToUnity(lightVal);
 
     // Read PIR & send
     pirVal = digitalRead(PIR_PIN);
     // test
     pirVal = 1;
+    //
     sendPirToUnity(pirVal);
 
     /* Get a new sensor event */
