@@ -108,6 +108,9 @@ void setup() {
     // Start the Neopixels
     pixels.begin();
     pixels.show();
+
+    // Expose a function to the cloud
+    Particle.function("ledSwitch", ledSwitch);
 }
 
 //
@@ -181,28 +184,28 @@ void sendTimeToUnity(int t){
     OSCMessage outMessage("/time");
     outMessage.addInt(t);
     outMessage.send(Udp,outIp,outPort);
-    status();
+    //status();
 }
 
 void sendTempToUnity(int t){
     OSCMessage outMessage("/temp");
     outMessage.addInt(t);
     outMessage.send(Udp,outIp,outPort);
-    status();
+    //status();
 }
 
 void sendLightToUnity(int l){
     OSCMessage outMessage("/light");
     outMessage.addInt(l);
     outMessage.send(Udp,outIp,outPort);
-    status();
+    //status();
 }
 
 void sendPirToUnity(int p){
     OSCMessage outMessage("/motion");
     outMessage.addInt(p);
     outMessage.send(Udp,outIp,outPort);
-    status();
+    //status();
 }
 
 void sendAccelToUnity(double x, double y, double z){
@@ -211,56 +214,56 @@ void sendAccelToUnity(double x, double y, double z){
     outMessage.addFloat(y);
     outMessage.addFloat(z);
     outMessage.send(Udp,outIp,outPort);
-    status();
+    //status();
 }
 
 void sendOrientationToUnity(uint8_t o){
     int orientOut=8;
     switch (o) {
     case MMA8451_PL_PUF:
-    Serial.println("Portrait Up Front");
+    //Serial.println("Portrait Up Front");
     orientOut = 1;
     // RED
     RGB.color(255,0,0);
     break;
     case MMA8451_PL_PUB:
-    Serial.println("Portrait Up Back");
+    //Serial.println("Portrait Up Back");
     orientOut = 2;
     // GREEN
     RGB.color(0,255,0);
     break;
     case MMA8451_PL_PDF:
-    Serial.println("Portrait Down Front");
+    //Serial.println("Portrait Down Front");
     orientOut = 3;
     // BLUE
     RGB.color(0,0,255);
     break;
     case MMA8451_PL_PDB:
-    Serial.println("Portrait Down Back");
+    //Serial.println("Portrait Down Back");
     orientOut = 4;
     // YELLOW
     RGB.color(255,255,0);
     break;
     case MMA8451_PL_LRF:
-    Serial.println("Landscape Right Front");
+    //Serial.println("Landscape Right Front");
     orientOut = 5;
     // CYAN
     RGB.color(0,255,255);
     break;
     case MMA8451_PL_LRB:
-    Serial.println("Landscape Right Back");
+    //Serial.println("Landscape Right Back");
     orientOut = 6;
     // MAGENTA
     RGB.color(255,0,255);
     break;
     case MMA8451_PL_LLF:
-    Serial.println("Landscape Left Front");
+    //Serial.println("Landscape Left Front");
     orientOut = 7;
     // WHITE
     RGB.color(255,255,255);
     break;
     case MMA8451_PL_LLB:
-    Serial.println("Landscape Left Back");
+    //Serial.println("Landscape Left Back");
     orientOut = 8;
     // OFF
     RGB.color(0,0,0);
@@ -269,13 +272,25 @@ void sendOrientationToUnity(uint8_t o){
     OSCMessage outMessage("/orient");
     outMessage.addInt(orientOut);
     outMessage.send(Udp,outIp,outPort);
-    status();
+    //status();
 }
 
 void status(){
   digitalWrite(STATUS_PIN, HIGH);
   delay(100);
   digitalWrite(STATUS_PIN, LOW);
+}
+
+int ledSwitch(String args){
+    //status();
+    Serial.println(args);
+    if(args.toInt()==1){
+        RGB.color(255,0,0);
+    }
+    if(args.toInt()==0){
+        RGB.color(0,0,0);
+    }
+    return 1;
 }
 
 //
